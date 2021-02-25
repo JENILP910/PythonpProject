@@ -1,0 +1,26 @@
+
+
+{% extends "base.html" %}
+    {% block content %}
+        <h1>Student List</h1>
+        {% if student_list %}
+            <ul>
+                {% for student in student_list %}
+                    <li>
+                        <form action='remove' method='POST'>
+                            {% csrf_token %}
+                            <a href="{{ student.get_absolute_url }}">{{ student.student_name }}</a>
+                            ({{student.student_dob}})
+                            
+                            <input type="hidden" name="student_name" value={{ student.student_name }}></input>
+                            <input type="submit" value="remove"></input>
+                        </form>
+                    </li>
+                    <br>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>There are no students registered.</p>
+        {% endif %}
+            <p> Click <a href="getinfo"</a> to add new record. </p>
+    {% endblock %}
